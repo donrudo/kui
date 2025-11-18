@@ -1,7 +1,7 @@
 {
   "name": "kui-shell",
   "version": "13.1.0",
-  "description": "This is the monorepo for Kui, the hybrid command-line/GUI electron-based Kubernetes tool",
+  "description": "This is the monorepo for Kui, the hybrid command-line/GUI Kubernetes tool (now powered by Tauri)",
   "main": "dist/headless/kui.min.js",
   "scripts": {
     "prepare": "cross-env husky install",
@@ -24,6 +24,13 @@
     "build:electron:win32:amd64": "npm run build:prep && PLATFORM=win32 ARCH=x64 kui-build-electron",
     "build:electron:windows:amd64": "npm run build:prep && PLATFORM=win32 ARCH=x64 kui-build-electron",
     "build:electron:all": "kui-build-electron",
+    "build:tauri:mac:amd64": "npm run build:prep && cd src-tauri && cargo build --release --target x86_64-apple-darwin",
+    "build:tauri:mac:arm64": "npm run build:prep && cd src-tauri && cargo build --release --target aarch64-apple-darwin",
+    "build:tauri:linux:amd64": "npm run build:prep && cd src-tauri && cargo build --release --target x86_64-unknown-linux-gnu",
+    "build:tauri:linux:arm64": "npm run build:prep && cd src-tauri && cargo build --release --target aarch64-unknown-linux-gnu",
+    "build:tauri:win32:amd64": "npm run build:prep && cd src-tauri && cargo build --release --target x86_64-pc-windows-msvc",
+    "tauri:dev": "cd src-tauri && cargo tauri dev",
+    "tauri:build": "cd src-tauri && cargo tauri build",
     "_kill": "if [ -f /tmp/kuiwatch-$T.pid ]; then PID=$(cat /tmp/kuiwatch-$T.pid); if [ -n \"$PID\" ]; then kill $PID > /dev/null 2> /dev/null || true; fi; fi",
     "kill": "T=client npm run _kill; T=headless npm run _kill",
     "kill:proxy": "if [ -f /tmp/kuiproxy.pid ]; then PID=$(cat /tmp/kuiproxy.pid); if [ -n \"$PID\" ]; then kill $PID > /dev/null 2> /dev/null || true; fi; rm -f /tmp/kuiproxy.pid; fi",
@@ -50,6 +57,7 @@
     "link": "bash -c \"if [ $OSTYPE != msys ]; then CLIENT=${CLIENT-default}; CLIENT_HOME=$(cd ./node_modules/@kui-shell/client && pwd) ./packages/builder/bin/seticon.js; fi\"",
     "postinstall": "rm -rf dist/headless && npm rebuild node-sass && npm run compile",
     "open": "electron . -- shell",
+    "open:tauri": "npm run tauri:dev",
     "start": "WATCH_ARGS='open' npm run watch"
   },
   "engines": {
@@ -82,6 +90,7 @@
     "@kui-shell/proxy": "file:packages/proxy",
     "@kui-shell/test": "file:packages/test",
     "@kui-shell/webpack": "file:packages/webpack",
+    "@tauri-apps/cli": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^5.58.0",
     "@typescript-eslint/parser": "^5.58.0",
     "colors": "1.4.0",
