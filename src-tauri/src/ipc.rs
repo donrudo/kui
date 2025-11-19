@@ -19,12 +19,14 @@ use serde::{Deserialize, Serialize};
 
 /// IPC message types
 #[derive(Debug, Serialize, Deserialize)]
+#[allow(dead_code)]
 pub struct IpcMessage {
     pub channel: String,
     pub data: serde_json::Value,
 }
 
 /// Initialize IPC subsystem
+#[allow(dead_code)]
 pub fn init() {
     debug!("IPC module initialized");
 }

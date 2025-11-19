@@ -28,10 +28,6 @@ mod ipc;
 mod menu;
 mod window;
 
-use commands::*;
-use ipc::*;
-use window::*;
-
 /// Application state to track open windows
 struct AppState {
     window_count: Mutex<usize>,
@@ -241,11 +237,11 @@ async fn synchronous_message(
 
 /// Tauri command: Execute plugin code in main process
 #[tauri::command]
-async fn exec_invoke(app: AppHandle, message: String) -> Result<serde_json::Value, String> {
+async fn exec_invoke(_app: AppHandle, message: String) -> Result<serde_json::Value, String> {
     debug!("Received exec invoke: {}", message);
 
     // Parse the message
-    let msg: serde_json::Value =
+    let _msg: serde_json::Value =
         serde_json::from_str(&message).map_err(|e| format!("Invalid message: {}", e))?;
 
     // For now, return a success response
@@ -259,7 +255,7 @@ async fn exec_invoke(app: AppHandle, message: String) -> Result<serde_json::Valu
 /// Tauri command: Capture page to clipboard
 #[tauri::command]
 async fn capture_to_clipboard(
-    window: Window,
+    _window: Window,
     x: i32,
     y: i32,
     width: u32,

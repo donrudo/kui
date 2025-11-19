@@ -18,6 +18,7 @@ use log::debug;
 use tauri::{AppHandle, Menu};
 
 /// Create and install application menus
+#[allow(dead_code)]
 pub fn create_menu(_app: &AppHandle) -> tauri::Result<Menu> {
     debug!("Creating application menu");
 
@@ -27,6 +28,7 @@ pub fn create_menu(_app: &AppHandle) -> tauri::Result<Menu> {
 }
 
 /// Initialize menu subsystem
+#[allow(dead_code)]
 pub fn init() {
     debug!("Menu module initialized");
 }

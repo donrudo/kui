@@ -17,6 +17,7 @@
 use log::debug;
 
 /// Additional command handlers can be defined here
+#[allow(dead_code)]
 pub fn init() {
     debug!("Commands module initialized");
 }

@@ -15,23 +15,29 @@
 //! Window management utilities for Kui
 
 use log::debug;
-use tauri::{PhysicalPosition, PhysicalSize};
+use tauri::PhysicalPosition;
 
 /// Default window dimensions
+#[allow(dead_code)]
 pub const DEFAULT_WIDTH: u32 = 1280;
+#[allow(dead_code)]
 pub const DEFAULT_HEIGHT: u32 = 960;
 
 /// Popup window dimensions
+#[allow(dead_code)]
 pub const POPUP_WIDTH: u32 = 600;
+#[allow(dead_code)]
 pub const POPUP_HEIGHT: u32 = 400;
 
 /// Calculate position for a new regular window
+#[allow(dead_code)]
 pub fn get_position_for_regular_window(window_count: usize) -> PhysicalPosition<i32> {
     let delta = (window_count * 40) as i32;
     PhysicalPosition::new(100 + delta, 100 + delta)
 }
 
 /// Calculate position for a popup window
+#[allow(dead_code)]
 pub fn get_position_for_popup(window_count: usize) -> PhysicalPosition<i32> {
     let delta = ((window_count - 1) * 40) as i32;
     // Position in the upper right
@@ -39,6 +45,7 @@ pub fn get_position_for_popup(window_count: usize) -> PhysicalPosition<i32> {
 }
 
 /// Initialize window management subsystem
+#[allow(dead_code)]
 pub fn init() {
     debug!("Window module initialized");
 }
