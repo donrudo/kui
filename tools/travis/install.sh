@@ -39,8 +39,14 @@ if [ -n "$NEEDS_K8S" ]; then ./tools/travis/microk8s.sh & k8s=$!; fi
 if [ -n "$NEEDS_MINIO" ]; then ./tools/travis/minio.sh & minio=$!; fi
 # Install dependencies without running scripts to avoid electron-chromedriver download issues
 npm ci --ignore-scripts
+
+# Rebuild native modules (node-pty) that require compilation
+echo "Rebuilding native modules (node-pty)..."
+npm run pty:rebuild node || true
+
 # Run husky install (from prepare script)
 npx cross-env husky install || true
+
 # Manually run compilation step from postinstall
 echo "Running TypeScript compilation..."
 npm run postinstall

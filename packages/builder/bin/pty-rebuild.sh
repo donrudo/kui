@@ -41,11 +41,27 @@ else
         (cd node_modules/.bin && rm -f rc && node -e 'require("fs").symlinkSync("../rc/cli.js", "rc")')
     fi
 
-    (cd node_modules/node-pty && node-gyp build)
+    # Find node-pty directory (could be in root node_modules or plugin-bash-like node_modules)
+    if [ -d "node_modules/node-pty" ]; then
+        PTY_DIR="node_modules/node-pty"
+    elif [ -d "plugins/plugin-bash-like/node_modules/node-pty" ]; then
+        PTY_DIR="plugins/plugin-bash-like/node_modules/node-pty"
+    else
+        echo "ERROR: Could not find node-pty directory"
+        exit 1
+    fi
+
+    echo "Rebuilding node-pty in $PTY_DIR"
+    (cd "$PTY_DIR" && node-gyp rebuild)
 fi
 
+# Copy spawn-helper from wherever node-pty was found
 if [ -f node_modules/node-pty/build/Release/spawn-helper ]; then
     echo "node-pty spawn-helper handling"
     mkdir -p dist/build/Release
     cp node_modules/node-pty/build/Release/spawn-helper dist/build/Release
+elif [ -f plugins/plugin-bash-like/node_modules/node-pty/build/Release/spawn-helper ]; then
+    echo "node-pty spawn-helper handling"
+    mkdir -p dist/build/Release
+    cp plugins/plugin-bash-like/node_modules/node-pty/build/Release/spawn-helper dist/build/Release
 fi
