@@ -2048,25 +2048,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "kui"
-version = "13.1.0"
-dependencies = [
- "cocoa",
- "env_logger",
- "log",
- "objc",
- "serde",
- "serde_json",
- "tauri",
- "tauri-build",
- "tauri-plugin-clipboard-manager",
- "tauri-plugin-dialog",
- "tauri-plugin-shell",
- "tokio",
- "urlencoding",
-]
-
-[[package]]
 name = "lazy_static"
 version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2696,6 +2677,25 @@ checksum = "9aa2b01e1d916879f73a53d01d1d6cee68adbb31d6d9177a8cfce093cced1d50"
 dependencies = [
  "futures-core",
  "pin-project-lite",
+]
+
+[[package]]
+name = "org-kui-shell-kui"
+version = "13.1.0"
+dependencies = [
+ "cocoa",
+ "env_logger",
+ "log",
+ "objc",
+ "serde",
+ "serde_json",
+ "tauri",
+ "tauri-build",
+ "tauri-plugin-clipboard-manager",
+ "tauri-plugin-dialog",
+ "tauri-plugin-shell",
+ "tokio",
+ "urlencoding",
 ]
 
 [[package]]
