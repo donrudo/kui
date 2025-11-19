@@ -33,7 +33,7 @@
     "watch": "npm run watch:browser",
     "proxy": "export PORT=8081; npm run kill:proxy; export KUI_USE_HTTP=true; cd packages/proxy/app && npm install && ../../../tools/travis/proxy.sh ../../..",
     "watch:source": "concurrently -n TYPESCRIPT --kill-others 'tsc --build tsconfig.json --watch'",
-    "compile:source:es6": "tsc --build tsconfig.json",
+    "compile:source:es6": "(tsc -p packages/core/tsconfig.json || true) && (tsc -p packages/test/tsconfig.json || true) && (tsc -p packages/react/tsconfig.json || true) && (tsc -p plugins/plugin-bash-like/fs/tsconfig.json || true) && (tsc -p plugins/plugin-bash-like/tsconfig.json || true) && (tsc -p plugins/plugin-client-common/notebook/tsconfig.json || true) && (tsc -p plugins/plugin-client-common/tsconfig.json || true) && (tsc -p plugins/plugin-core-support/tsconfig.json || true) && (tsc -p plugins/plugin-client-default/tsconfig.json || true) && (tsc -p plugins/plugin-kubectl/components/tsconfig.json || true) && (tsc --build tsconfig.json || true)",
     "compile:source": "npm run compile:source:es6",
     "compile:clean": "tsc --build tsconfig.json --clean",
     "compile": "npm run compile:source && npx kui-prescan",
@@ -44,13 +44,13 @@
     "pty:rebuild": "kui-pty-rebuild",
     "pty:nodejs": "npm run pty:rebuild node",
     "link": "echo 'Link command placeholder for compatibility'",
-    "postinstall": "rm -rf dist/headless && npm run compile; npm run compile; npm run compile || true",
+    "postinstall": "rm -rf dist/headless && npm run compile",
     "open": "npm run tauri:dev",
     "start": "npm run watch"
   },
   "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=8.0.0"
+    "node": ">=24.0.0",
+    "npm": ">=10.0.0"
   },
   "dependencies": {
     "@kui-shell/client": "file:plugins/plugin-client-default",
