@@ -59,10 +59,7 @@
         "fullscreen": false,
         "center": true,
         "decorations": true,
-        "transparent": false,
-        "webPreferences": {
-          "devTools": true
-        }
+        "transparent": false
       }
     ],
     "security": {
