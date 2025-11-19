@@ -42,7 +42,6 @@
   },
   "productName": "Kui",
   "version": "13.1.0",
-  "identifier": "org.kui-shell.kui",
   "plugins": {
     "shell": {
       "open": true
