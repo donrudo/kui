@@ -1,0 +1,84 @@
+{
+  "$schema": "https://schema.tauri.app/config/2.0",
+  "build": {
+    "beforeBuildCommand": "npm run compile",
+    "beforeDevCommand": "npm run watch:browser",
+    "devPath": "http://localhost:9080",
+    "distDir": "../dist/webpack",
+    "withGlobalTauri": true
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "identifier": "org.kui-shell.kui",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "resources": [],
+    "copyright": "Copyright 2017-2025 The Kubernetes Authors",
+    "category": "DeveloperTool",
+    "shortDescription": "A framework for enhancing CLIs with graphics",
+    "longDescription": "Kui takes your normal kubectl command line requests and responds with graphics. Instead of ASCII tables, you are presented with sortable ones. Instead of copying and pasting long auto-generated resource names, in Kui you just click.",
+    "linux": {
+      "deb": {
+        "depends": []
+      }
+    },
+    "macOS": {
+      "frameworks": [],
+      "minimumSystemVersion": "10.13",
+      "exceptionDomain": "",
+      "signingIdentity": null,
+      "entitlements": null
+    },
+    "windows": {
+      "certificateThumbprint": null,
+      "digestAlgorithm": "sha256",
+      "timestampUrl": ""
+    }
+  },
+  "productName": "Kui",
+  "version": "13.1.0",
+  "identifier": "org.kui-shell.kui",
+  "plugins": {
+    "shell": {
+      "open": true
+    }
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Kui",
+        "width": 1280,
+        "height": 960,
+        "resizable": true,
+        "fullscreen": false,
+        "center": true,
+        "decorations": true,
+        "transparent": false,
+        "webPreferences": {
+          "devTools": true
+        }
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: filesystem: about: blob: ws: wss: http: https:",
+      "devCsp": null,
+      "freezePrototype": false,
+      "dangerousDisableAssetCspModification": true,
+      "assetProtocol": {
+        "enable": true,
+        "scope": []
+      }
+    },
+    "trayIcon": {
+      "iconPath": "icons/icon.png",
+      "iconAsTemplate": true
+    },
+    "macOSPrivateApi": true
+  }
+}
