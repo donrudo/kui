@@ -1,5 +1,5 @@
 [package]
-name = "kui"
+name = "org-kui-shell-kui"
 version = "13.1.0"
 description = "Kui - A hybrid command-line/GUI Kubernetes tool"
 authors = ["The Kubernetes Authors"]
