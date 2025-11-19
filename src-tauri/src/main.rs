@@ -241,10 +241,7 @@ async fn synchronous_message(
 
 /// Tauri command: Execute plugin code in main process
 #[tauri::command]
-async fn exec_invoke(
-    app: AppHandle,
-    message: String,
-) -> Result<serde_json::Value, String> {
+async fn exec_invoke(app: AppHandle, message: String) -> Result<serde_json::Value, String> {
     debug!("Received exec invoke: {}", message);
 
     // Parse the message
