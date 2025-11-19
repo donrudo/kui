@@ -37,7 +37,10 @@ fi
 if [ -n "$NEEDS_OPENWHISK" ]; then ./tools/travis/openwhisk/start.sh & ow=$!; fi
 if [ -n "$NEEDS_K8S" ]; then ./tools/travis/microk8s.sh & k8s=$!; fi
 if [ -n "$NEEDS_MINIO" ]; then ./tools/travis/minio.sh & minio=$!; fi
-npm ci
+# Install dependencies without running scripts to avoid electron-chromedriver download issues
+npm ci --ignore-scripts
+# Manually run compilation step from postinstall
+npm run compile
 if [ "$CLIENT" != "default" ]; then ./bin/switch-client.sh ${CLIENT-default}; fi
 ./tools/codecov/instrument.sh
 if [ "$MOCHA_RUN_TARGET" = "webpack" ]; then export KUI_USE_PROXY=true; if [ "$DEPLOY" = "cluster" ]; then npx kui-build-webpack && npx kui-build-docker-with-proxy && (kui-run-cproxy &); else npm run watch:webpack; fi; elif [ -z "$TEST_FROM_BUILD" ]; then npm run watch:electron; else npm run build:electron:$TRAVIS_OS_NAME:${TRAVIS_CPU_ARCH-amd64}; fi

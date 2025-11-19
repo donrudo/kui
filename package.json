@@ -44,7 +44,7 @@
     "pty:rebuild": "kui-pty-rebuild",
     "pty:nodejs": "npm run pty:rebuild node",
     "link": "echo 'Link command placeholder for compatibility'",
-    "postinstall": "rm -rf dist/headless && npm rebuild node-sass && npm run compile",
+    "postinstall": "rm -rf dist/headless && npm run compile",
     "open": "npm run tauri:dev",
     "start": "npm run watch"
   },
@@ -152,6 +152,7 @@
   "overrides": {
     "nan": "$nan",
     "colors": "$colors",
-    "deep-eql": "^5.0.2"
+    "deep-eql": "^5.0.2",
+    "enquirer": "^2.4.1"
   }
 }
