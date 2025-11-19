@@ -89,11 +89,13 @@ export const preinit = async (inSandbox: boolean) => {
 
   if (!inSandbox && !inBrowser()) {
     // Notes: sequester the electron bits into their own chunk, to
+    // ELECTRON REMOVED: Skip electron preinit
     // prevent webpack from bunching code that has an
     // `import('electron')` into the main bundle
-    prefs = await import(/* webpackChunkName: "electron" */ /* webpackMode: "lazy" */ './init-electron').then(_ =>
-      _.preinit()
-    )
+    // prefs = await import(/* webpackChunkName: "electron" */ /* webpackMode: "lazy" */ './init-electron').then(_ =>
+    //   _.preinit()
+    // )
+    prefs = {}
   }
 
   return prefs

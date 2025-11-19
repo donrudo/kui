@@ -1,7 +1,7 @@
 {
   "name": "@kui-shell/core",
   "version": "13.1.0",
-  "description": "An Electron-based shell for cloud-native development",
+  "description": "A Tauri-based shell for cloud-native development",
   "homepage": "https://github.com/IBM/kui#readme",
   "license": "Apache-2.0",
   "author": "Nick Mitchell",

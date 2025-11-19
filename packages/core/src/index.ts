@@ -248,8 +248,8 @@ export {
 // Util
 export * from './api'
 
-// Electron
-export { tellMain } from './webapp/electron-events'
+// Electron - REMOVED: Migrated to Tauri
+// export { tellMain } from './webapp/electron-events'
 export { default as tellRendererToExecute } from './main/tell'
 
 // main

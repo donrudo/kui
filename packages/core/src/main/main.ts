@@ -39,25 +39,27 @@ export const main = async (argv: string[], env = process.env, execOptions?: Exec
   const isRunningHeadless = !!process.env.KUI_HEADLESS || (argv[N - 3] === 'bash' && argv[N - 2] === 'websocket')
 
   if (!isRunningHeadless || !!process.env.KUI_FORCE_GRAPHICS) {
+    // ELECTRON REMOVED: Use Tauri instead
+    throw new Error('Electron support has been removed. Please use Tauri build instead.')
     // then spawn the electron graphics
-    debug('shortcut to graphics', argv)
-    const { getCommand, initElectron } = await import(/* webpackChunkName: "electron-main" */ './spawn-electron')
-    const {
-      argv: strippedArgv,
-      subwindowPlease,
-      subwindowPrefs
-    } = getCommand(argv, process.cwd(), env, async () =>
-      import('electron').catch(err => {
-        debug('Error importing electron. We are probably running a headless client.', err)
-        return { screen: undefined, BrowserWindow: undefined }
-      })
-    )
-    initElectron(
-      strippedArgv,
-      { isRunningHeadless },
-      !!(env.subwindowPlease || subwindowPlease),
-      getPrefsFromEnv(env, subwindowPrefs)
-    )
+    // debug('shortcut to graphics', argv)
+    // const { getCommand, initElectron } = await import(/* webpackChunkName: "electron-main" */ './spawn-electron')
+    // const {
+    //   argv: strippedArgv,
+    //   subwindowPlease,
+    //   subwindowPrefs
+    // } = getCommand(argv, process.cwd(), env, async () =>
+    //   import('electron').catch(err => {
+    //     debug('Error importing electron. We are probably running a headless client.', err)
+    //     return { screen: undefined, BrowserWindow: undefined }
+    //   })
+    // )
+    // initElectron(
+    //   strippedArgv,
+    //   { isRunningHeadless },
+    //   !!(env.subwindowPlease || subwindowPlease),
+    //   getPrefsFromEnv(env, subwindowPrefs)
+    // )
   } else {
     // otherwise, don't spawn the graphics; stay in headless mode
     const { initHeadless } = await import(/* webpackChunkName: "headless-main" */ './headless')

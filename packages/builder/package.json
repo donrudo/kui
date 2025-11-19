@@ -14,8 +14,6 @@
   "bin": {
     "kui-pty-rebuild": "./bin/pty-rebuild.sh",
     "kui-build-headless": "./dist/headless/build.sh",
-    "kui-build-electron": "./dist/electron/build.sh",
-    "kui-set-icon": "./bin/seticon.js",
     "kui-init": "./build/kui-dist-init.js",
     "kui-compile": "./bin/compile.sh",
     "kui-prescan": "./bin/prescan.sh"
@@ -25,7 +23,6 @@
     "prepack": "chmod +x ./build/kui-dist-init.js"
   },
   "dependencies": {
-    "@electron/rebuild": "^3.2.10",
     "@types/node": "^18.15.11",
     "shelljs": "^0.8.5"
   },

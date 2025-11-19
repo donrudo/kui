@@ -59,22 +59,23 @@ jobs:
         MOCHA_RUN_TARGET: webpack
       run: ./tools/travis/install.sh && BOTTOM_INPUT_MODE=true npx concurrently -n BOTTOM 'npm run test bottom-input'
 
-  api-electron:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.x]
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: Run Tests
-      env:
-        CLIENT: test
-        MOCHA_RUN_TARGET: electron
-      run: ./tools/travis/install.sh && npm run test api-popup && npx concurrently -n API1,API2 'npm run test1 api1' 'npm run test2 api2'
+  # DISABLED: Electron has been removed in favor of Tauri
+  # api-electron:
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       node-version: [16.x]
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   - name: Use Node.js ${{ matrix.node-version }}
+  #     uses: actions/setup-node@v3
+  #     with:
+  #       node-version: ${{ matrix.node-version }}
+  #   - name: Run Tests
+  #     env:
+  #       CLIENT: test
+  #       MOCHA_RUN_TARGET: electron
+  #     run: ./tools/travis/install.sh && npm run test api-popup && npx concurrently -n API1,API2 'npm run test1 api1' 'npm run test2 api2'
 
   bash-core-browser:
     runs-on: ubuntu-latest
@@ -114,26 +115,27 @@ jobs:
         NEEDS_GIT: true
       run: ./tools/travis/install.sh && npx concurrently -n SUP2 'npm run test4 core-support2' && npx concurrently -n BASH 'npm run test5 bash-like'
       
-  bash-electron:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.x]
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: Run Tests
-      env:
-        CLIENT: default
-        MOCHA_RUN_TARGET: electron
-        NEEDS_BASH_PREP: true
-        NEEDS_GIT: true
-        TEST_FROM_BUILD: ${{ github.workspace }}/dist/electron/Kui-linux-x64/Kui
-        KUI_NO_TRAY_MENU: true # i have no idea, but something in tray/main fails on linux, just in github actions
-      run: ./tools/travis/install.sh && npm run test1 bash-like-wait && npm run test1 bash-like
+  # DISABLED: Electron has been removed in favor of Tauri
+  # bash-electron:
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       node-version: [16.x]
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   - name: Use Node.js ${{ matrix.node-version }}
+  #     uses: actions/setup-node@v3
+  #     with:
+  #       node-version: ${{ matrix.node-version }}
+  #   - name: Run Tests
+  #     env:
+  #       CLIENT: default
+  #       MOCHA_RUN_TARGET: electron
+  #       NEEDS_BASH_PREP: true
+  #       NEEDS_GIT: true
+  #       TEST_FROM_BUILD: ${{ github.workspace }}/dist/electron/Kui-linux-x64/Kui
+  #       KUI_NO_TRAY_MENU: true # i have no idea, but something in tray/main fails on linux, just in github actions
+  #   run: ./tools/travis/install.sh && npm run test1 bash-like-wait && npm run test1 bash-like
 
   k8s-browser:
     runs-on: ubuntu-latest
@@ -186,91 +188,95 @@ jobs:
         TRAVIS_CHAOS_TESTING: true
       run: ./tools/travis/install.sh && npx concurrently -n K8S2 'npm run test1 k8s2'
 
-  k8s-electron:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.x]
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-# TEMPORARY WHILE GITHUB FIXES THIS https://github.com/actions/virtual-environments/issues/3185
-    - name: Add the current IP address, long hostname and short hostname record to /etc/hosts file
-      run: |
-       echo -e "$(ip addr show eth0 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1)\t$(hostname -f) $(hostname -s)" | sudo tee -a /etc/hosts
-# DONT'T FORGET TO REMOVE CODE ABOVE WHEN ISSUE IS ADRESSED!
-    - name: Run Tests
-      env:
-        CLIENT: default
-        MOCHA_RUN_TARGET: electron
-        NEEDS_K8S: true
-        NEEDS_OC: true
-        NEEDS_TOP: true
-        NEEDS_HELM: true
-        TEST_FROM_BUILD: "${{ github.workspace }}/dist/electron/Kui-linux-x64/Kui"
-        KUI_DIST_PATH: "${{ github.workspace }}/dist/electron/Kui-linux-x64/Kui"
-        KUI_NO_TRAY_MENU: true # i have no idea, but something in tray/main fails on linux, just in github actions
-      run: ./tools/travis/install.sh && npx concurrently -n K8S 'npm run test1 k8s k8s-popup' && npx concurrently -n K8S1 'npm run test1 k8s1' && npx concurrently -n LOGS 'npm run test1 logs' && npx concurrently -n HELM 'npm run test1 helm'
+  # DISABLED: Electron has been removed in favor of Tauri
+  # k8s-electron:
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       node-version: [16.x]
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   - name: Use Node.js ${{ matrix.node-version }}
+  #     uses: actions/setup-node@v3
+  #     with:
+  #       node-version: ${{ matrix.node-version }}
+  # # TEMPORARY WHILE GITHUB FIXES THIS https://github.com/actions/virtual-environments/issues/3185
+  #   - name: Add the current IP address, long hostname and short hostname record to /etc/hosts file
+  #     run: |
+  #      echo -e "$(ip addr show eth0 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1)\t$(hostname -f) $(hostname -s)" | sudo tee -a /etc/hosts
+  # # DONT'T FORGET TO REMOVE CODE ABOVE WHEN ISSUE IS ADRESSED!
+  #   - name: Run Tests
+  #     env:
+  #       CLIENT: default
+  #       MOCHA_RUN_TARGET: electron
+  #       NEEDS_K8S: true
+  #       NEEDS_OC: true
+  #       NEEDS_TOP: true
+  #       NEEDS_HELM: true
+  #       TEST_FROM_BUILD: "${{ github.workspace }}/dist/electron/Kui-linux-x64/Kui"
+  #       KUI_DIST_PATH: "${{ github.workspace }}/dist/electron/Kui-linux-x64/Kui"
+  #       KUI_NO_TRAY_MENU: true # i have no idea, but something in tray/main fails on linux, just in github actions
+  #     run: ./tools/travis/install.sh && npx concurrently -n K8S 'npm run test1 k8s k8s-popup' && npx concurrently -n K8S1 'npm run test1 k8s1' && npx concurrently -n LOGS 'npm run test1 logs' && npx concurrently -n HELM 'npm run test1 helm'
 
-  osx1:
-    runs-on: macos-11
-    strategy:
-      matrix:
-        node-version: [16.x]
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: Run Tests
-      env:
-        CLIENT: default
-        MOCHA_RUN_TARGET: electron
-        NEEDS_GIT: true
-        TRAVIS_OS_NAME: osx
-        TEST_FROM_BUILD: ${{ github.workspace }}/dist/electron/Kui-darwin-x64/Kui.app/Contents/MacOS/Kui
-      run: ./tools/travis/install.sh && npx concurrently -n COPY 'npm run test1 core-standalone' && npx concurrently -n SUP2 'npm run test4 core-support2' && npx concurrently -n EDIT 'npm run test3 editor'
+  # DISABLED: Electron has been removed in favor of Tauri
+  # osx1:
+  #   runs-on: macos-11
+  #   strategy:
+  #     matrix:
+  #       node-version: [16.x]
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   - name: Use Node.js ${{ matrix.node-version }}
+  #     uses: actions/setup-node@v3
+  #     with:
+  #       node-version: ${{ matrix.node-version }}
+  #   - name: Run Tests
+  #     env:
+  #       CLIENT: default
+  #       MOCHA_RUN_TARGET: electron
+  #       NEEDS_GIT: true
+  #       TRAVIS_OS_NAME: osx
+  #       TEST_FROM_BUILD: ${{ github.workspace }}/dist/electron/Kui-darwin-x64/Kui.app/Contents/MacOS/Kui
+  #     run: ./tools/travis/install.sh && npx concurrently -n COPY 'npm run test1 core-standalone' && npx concurrently -n SUP2 'npm run test4 core-support2' && npx concurrently -n EDIT 'npm run test3 editor'
 
-  osx2:
-    runs-on: macos-11
-    strategy:
-      matrix:
-        node-version: [16.x]
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: Run Tests
-      env:
-        CLIENT: default
-        MOCHA_RUN_TARGET: electron
-        NEEDS_GIT: true
-        TRAVIS_OS_NAME: osx
-      run: ./tools/travis/install.sh && npx concurrently -n CORE,SUP1 'npm run test1 core' 'npm run test2 core-support'
+  # DISABLED: Electron has been removed in favor of Tauri
+  # osx2:
+  #   runs-on: macos-11
+  #   strategy:
+  #     matrix:
+  #       node-version: [16.x]
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   - name: Use Node.js ${{ matrix.node-version }}
+  #     uses: actions/setup-node@v3
+  #     with:
+  #       node-version: ${{ matrix.node-version }}
+  #   - name: Run Tests
+  #     env:
+  #       CLIENT: default
+  #       MOCHA_RUN_TARGET: electron
+  #       NEEDS_GIT: true
+  #       TRAVIS_OS_NAME: osx
+  #     run: ./tools/travis/install.sh && npx concurrently -n CORE,SUP1 'npm run test1 core' 'npm run test2 core-support'
       
-  s3-electron:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.x]
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: Run Tests
-      env:
-        CLIENT: default
-        MOCHA_RUN_TARGET: electron
-        NEEDS_MINIO: true
-      run: ./tools/travis/install.sh && npm run test1 s3
+  # DISABLED: Electron has been removed in favor of Tauri
+  # s3-electron:
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       node-version: [16.x]
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   - name: Use Node.js ${{ matrix.node-version }}
+  #     uses: actions/setup-node@v3
+  #     with:
+  #       node-version: ${{ matrix.node-version }}
+  #   - name: Run Tests
+  #     env:
+  #       CLIENT: default
+  #       MOCHA_RUN_TARGET: electron
+  #       NEEDS_MINIO: true
+  #     run: ./tools/travis/install.sh && npm run test1 s3
 
   # this is a duplicate of s3-electron with one difference: `MOCHA_RUN_TARGET: webpack`
   s3-browser:

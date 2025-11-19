@@ -51,10 +51,12 @@ const domReady = (inSandbox: boolean, client?: Client) => async () => {
       })
     )
 
+    // ELECTRON REMOVED: Skip electron-events initialization
     waitForThese.push(
-      document.body.classList.contains('in-electron')
-        ? import(/* webpackChunkName: "electron" */ /* webpackMode: "lazy" */ '../electron-events').then(_ => _.init())
-        : Promise.resolve()
+      // document.body.classList.contains('in-electron')
+      //   ? import(/* webpackChunkName: "electron" */ /* webpackMode: "lazy" */ '../electron-events').then(_ => _.init())
+      //   : Promise.resolve()
+      Promise.resolve()
     )
 
     waitForThese.push(waitForThese[1].then(() => initializer).then(_ => _.init()))
@@ -69,10 +71,12 @@ const domReady = (inSandbox: boolean, client?: Client) => async () => {
       if (client) {
         const root = document.body.querySelector('main')
         if (!inSandbox && !inBrowser()) {
+          // ELECTRON REMOVED: Always use default render
           // if in Electron, then see if the init-electron code wants to special case things
-          import(/* webpackChunkName: "electron" */ /* webpackMode: "lazy" */ './init-electron').then(_ =>
-            _.render(client, root)
-          )
+          // import(/* webpackChunkName: "electron" */ /* webpackMode: "lazy" */ './init-electron').then(_ =>
+          //   _.render(client, root)
+          // )
+          client(root)
         } else {
           client(root, false)
         }
