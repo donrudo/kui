@@ -3,9 +3,8 @@
   "build": {
     "beforeBuildCommand": "npm run compile",
     "beforeDevCommand": "npm run watch:browser",
-    "devPath": "http://localhost:9080",
-    "distDir": "../dist/webpack",
-    "withGlobalTauri": true
+    "devUrl": "http://localhost:9080",
+    "frontendDist": "../dist/webpack"
   },
   "bundle": {
     "active": true,
