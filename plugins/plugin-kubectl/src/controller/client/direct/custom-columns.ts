@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import jsonpath from '@kui-shell/jsonpath'
+import jsonpath from 'jsonpath'
 import { Arguments, Row, Table, encodeComponent } from '@kui-shell/core'
 import { KubeOptions, withKubeconfigFrom } from '../../kubectl/options'
 import { TrafficLight, KubeStatusAny, KubeItems, isKubeItems, KubeResource } from '@kui-shell/plugin-kubectl-core'

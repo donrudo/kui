@@ -42,7 +42,7 @@
     "@types/uuid": "^9.0.1"
   },
   "dependencies": {
-    "@kui-shell/jsonpath": "^1.1.1",
+    "jsonpath": "^1.1.1",
     "@kui-shell/plugin-kubectl-core": "*",
     "bytes-iec": "^3.1.1",
     "command-exists": "^1.2.9",
