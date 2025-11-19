@@ -143,11 +143,18 @@ sudo apt install -y \
     build-essential \
     curl \
     wget \
-    file
+    file \
+    libwayland-dev \
+    libxkbcommon-dev \
+    wayland-protocols
+
+# For hybrid Wayland/X11 support (XWayland)
+sudo apt install -y xwayland
 
 # Verify installations
 pkg-config --modversion gtk+-3.0
 pkg-config --modversion webkit2gtk-4.0
+pkg-config --modversion wayland-client
 ```
 
 ### 2.2 macOS
@@ -216,13 +223,18 @@ cargo tauri dev
 
 **Issue: GTK libraries not found (Linux)**
 ```bash
-sudo apt install libgtk-3-dev
+sudo apt install libgtk-3-dev libwayland-dev
 export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig
 ```
 
 **Issue: WebKit2GTK not found (Linux)**
 ```bash
 sudo apt install libwebkit2gtk-4.0-dev
+```
+
+**Issue: Wayland libraries not found (Linux)**
+```bash
+sudo apt install libwayland-dev libxkbcommon-dev wayland-protocols
 ```
 
 **Issue: Missing system libraries**
@@ -835,7 +847,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev \
-            libayatana-appindicator3-dev librsvg2-dev patchelf
+            libayatana-appindicator3-dev librsvg2-dev patchelf \
+            libwayland-dev libxkbcommon-dev wayland-protocols xwayland
 
       - name: Install npm dependencies
         run: npm ci

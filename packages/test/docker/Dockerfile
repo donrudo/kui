@@ -18,8 +18,10 @@ FROM node:8.9-slim
 
 # install debian packages
 # note: git is needed by npm install in tests
+# Using Wayland instead of X11 for modern display server support
 RUN apt-get update \
  && apt-get install -y \
-    bash git dbus dbus-x11 xvfb make g++ libnss3 libasound2 libgconf-2-4 libxtst6 libxss1 libgtk2.0-0
+    bash git dbus make g++ libnss3 libasound2 libgconf-2-4 libgtk-3-0 \
+    libwayland-client0 libwayland-server0 weston xwayland
 
 ADD chromedriver /chromedriver

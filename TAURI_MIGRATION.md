@@ -190,7 +190,13 @@ sudo apt-get install -y \
     libwebkit2gtk-4.0-dev \
     libayatana-appindicator3-dev \
     librsvg2-dev \
-    patchelf
+    patchelf \
+    libwayland-dev \
+    libxkbcommon-dev \
+    wayland-protocols
+
+# For hybrid Wayland/X11 support (XWayland)
+sudo apt-get install -y xwayland
 ```
 
 **macOS:**
@@ -296,10 +302,10 @@ Key configuration options:
 
 ### Common Issues
 
-**1. Build fails with "gdk-pixbuf-2.0 not found"**
+**1. Build fails with "gdk-pixbuf-2.0 not found" or Wayland errors**
 ```bash
 # Install missing Linux dependencies
-sudo apt-get install libgtk-3-dev libwebkit2gtk-4.0-dev
+sudo apt-get install libgtk-3-dev libwebkit2gtk-4.0-dev libwayland-dev libxkbcommon-dev
 ```
 
 **2. "Tauri not found" error**
