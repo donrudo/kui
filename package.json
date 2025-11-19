@@ -33,7 +33,7 @@
     "watch": "npm run watch:browser",
     "proxy": "export PORT=8081; npm run kill:proxy; export KUI_USE_HTTP=true; cd packages/proxy/app && npm install && ../../../tools/travis/proxy.sh ../../..",
     "watch:source": "concurrently -n TYPESCRIPT --kill-others 'tsc --build tsconfig.json --watch'",
-    "compile:source:es6": "tsc --build tsconfig.json",
+    "compile:source:es6": "tsc --build packages/core/tsconfig.json packages/test/tsconfig.json packages/react/tsconfig.json --force || tsc --build tsconfig.json --force",
     "compile:source": "npm run compile:source:es6",
     "compile:clean": "tsc --build tsconfig.json --clean",
     "compile": "npm run compile:source && npx kui-prescan",
