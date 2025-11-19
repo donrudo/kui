@@ -37,7 +37,6 @@
     "@types/ws": "^8.5.4"
   },
   "dependencies": {
-    "@kui-shell/xterm-helpers": "^2.1.0",
     "@xterm/addon-fit": "^0.10.0",
     "@xterm/addon-webgl": "^0.18.0",
     "@xterm/xterm": "^5.5.0",
