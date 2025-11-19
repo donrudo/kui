@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-FROM node:12-bullseye-slim
+FROM node:18-bullseye-slim
 
 ## preesed tzdata, update package index, upgrade packages and install needed software
 ENV DEBIAN_FRONTEND=noninteractive

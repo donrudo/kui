@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-FROM node:8.9-slim
+FROM node:18-slim
 
 # install debian packages
 # note: git is needed by npm install in tests

@@ -49,8 +49,8 @@
     "start": "npm run watch"
   },
   "engines": {
-    "node": ">=12.22.9",
-    "npm": ">=6.9.0"
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   },
   "dependencies": {
     "@kui-shell/client": "file:plugins/plugin-client-default",
@@ -80,7 +80,7 @@
     "@typescript-eslint/eslint-plugin": "^5.58.0",
     "@typescript-eslint/parser": "^5.58.0",
     "colors": "1.4.0",
-    "concurrently": "^8.0.1",
+    "concurrently": "^9.2.1",
     "cross-env": "^7.0.3",
     "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.8.0",
