@@ -15,31 +15,14 @@
  */
 
 /**
- * Tell the renderer to execute a command
- *
+ * Tell the renderer to execute a command (Electron-only, stub for Tauri builds)
+ * This function is deprecated and only kept for backward compatibility with legacy Electron builds.
+ * For Tauri builds, this is a no-op.
  */
 const tellRendererToExecute = async (command: string, exec = 'qexec') => {
-  const { webContents } = await import('electron')
-  const focusedWindow = webContents.getFocusedWebContents() || webContents.getAllWebContents()[0] // see https://github.com/IBM/kui/issues/1717
-
-  const devTools = webContents
-    .getAllWebContents()
-    .map(_ => _.devToolsWebContents)
-    .filter(x => x)
-  const isFocusedWindowDevTools = devTools.find(_ => _.id === focusedWindow.id)
-
-  if (isFocusedWindowDevTools) {
-    // debug('closing dev tools')
-    const owningWindow = webContents.getAllWebContents().find(_ => {
-      return _.devToolsWebContents && _.devToolsWebContents.id === focusedWindow.id
-    })
-    if (owningWindow) {
-      owningWindow.closeDevTools()
-    }
-  } else if (focusedWindow) {
-    // debug('closing kui window')
-    focusedWindow.send(`/repl/${exec}`, { command })
-  }
+  // Stub implementation for Tauri - does nothing
+  // In Tauri, commands are executed directly via Tauri's invoke API
+  console.log('tellRendererToExecute is deprecated (Electron-only), command not executed:', command, exec)
 }
 
 export default tellRendererToExecute

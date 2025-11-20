@@ -86,7 +86,7 @@ export { isWatchable, Watchable, Watcher, WatchPusher } from './core/jobs/watcha
 export { Abortable, FlowControllable, Job, Resizable, isResizable, Suspendable, isSuspendable } from './core/jobs/job'
 
 import { Tab } from './webapp/tab'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+ 
 import { getHistoryForTab } from './models/history'
 export function History(tab: string | Tab) {
   return getHistoryForTab(typeof tab === 'string' ? tab : tab.uuid)
@@ -250,7 +250,7 @@ export * from './api'
 
 // Electron - REMOVED: Migrated to Tauri
 // export { tellMain } from './webapp/electron-events'
-export { default as tellRendererToExecute } from './main/tell'
+// export { default as tellRendererToExecute } from './main/tell' // Electron-only, not needed for Tauri
 
 // main
 // export { main } from './main/main'

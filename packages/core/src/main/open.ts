@@ -14,26 +14,13 @@
  * limitations under the License.
  */
 
-import { replay } from './notebooks'
-
 export const filters = [{ name: 'Kui snapshot', extensions: ['md'] }]
 
 /**
- * Open a file and replay its session.
- *
+ * Open a file and replay its session (Electron-only, stub for Tauri builds)
+ * For Tauri, use Tauri's file dialog API instead.
  */
-export default async function open(createWindow: (executeThisArgvPlease?: string[]) => void) {
-  const { app, dialog } = await import('electron')
-
-  const resp = await dialog.showOpenDialog({
-    title: 'Select a Kui snapshot',
-    filters
-  })
-
-  if (!resp.canceled) {
-    resp.filePaths.forEach(filepath => {
-      app.addRecentDocument(filepath)
-      replay(filepath, createWindow)
-    })
-  }
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export default async function open(_createWindow: (executeThisArgvPlease?: string[]) => void) {
+  console.log('open() is deprecated (Electron-only). For Tauri, use Tauri file dialog APIs.')
 }

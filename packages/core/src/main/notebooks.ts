@@ -14,30 +14,28 @@
  * limitations under the License.
  */
 
-import { MenuItemConstructorOptions, webContents } from 'electron'
-
-import tellRendererToExecute from './tell'
-import encodeComponent from '../repl/encode'
 import { NotebooksMenu, isMenu, isLeaf } from './load'
+
+// Stub type for compatibility
+interface MenuItemConstructorOptions {
+  label?: string
+  submenu?: MenuItemConstructorOptions[]
+  [key: string]: unknown
+}
 
 interface OpenNotebookItem {
   label: string
   click: () => void
 }
 
-/** Open a new window or tab and replay the contents of the given `filepath` */
-export function replay(filepath: string, createWindow: (executeThisArgvPlease?: string[]) => void) {
-  try {
-    // if we have no open kui windows, open a new one; otherwise,
-    // use a tab in an existing window
-    if (webContents.getAllWebContents().length === 0) {
-      createWindow(['replay', filepath])
-    } else {
-      tellRendererToExecute(`replay ${encodeComponent(filepath)}`, 'pexec')
-    }
-  } catch (err) {
-    console.log(err)
-  }
+/**
+ * Open a new window or tab and replay the contents of the given `filepath`
+ * Stub for Tauri builds - creates new window
+ */
+export async function replay(filepath: string, createWindow: (executeThisArgvPlease?: string[]) => void) {
+  // For Tauri, just create a new window with the replay command
+  console.log('replay() stub called for Tauri, creating new window for:', filepath)
+  createWindow(['replay', filepath])
 }
 
 /** @return a menu item that opens the given notebook */
@@ -56,24 +54,22 @@ export function openNotebook(
 export function clientNotebooksDefinitionToElectron(
   defn: NotebooksMenu,
   notebook: (label: string, filepath: string) => OpenNotebookItem
-): MenuItemConstructorOptions {
+): MenuItemConstructorOptions | undefined {
   if (defn) {
-    return Object.assign(
-      {},
-      {
-        label: defn.label,
-        submenu: defn.submenu.map(item => {
-          if (isMenu(item)) {
-            return clientNotebooksDefinitionToElectron(item, notebook)
-          } else if (isLeaf(item)) {
-            // this is the only mogrifier
-            return notebook(item.notebook, item.filepath)
-          } else {
-            // separator, no change
-            return item
-          }
-        })
-      }
-    )
+    return {
+      label: defn.label,
+      submenu: defn.submenu.map(item => {
+        if (isMenu(item)) {
+          return clientNotebooksDefinitionToElectron(item, notebook)
+        } else if (isLeaf(item)) {
+          // this is the only mogrifier
+          return notebook(item.notebook, item.filepath)
+        } else {
+          // separator, no change
+          return item
+        }
+      })
+    }
   }
+  return undefined
 }

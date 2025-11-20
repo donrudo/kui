@@ -22,7 +22,7 @@ import { Td } from '@patternfly/react-table/dist/esm/components/TableComposable'
 import type { ExecOptions, Table as KuiTable, Cell as KuiCell, Row as KuiRow, Tab, REPL } from '@kui-shell/core'
 
 import { isHeadless } from '@kui-shell/core/mdist/api/Capabilities'
-import { split, pexecInCurrentTab } from '@kui-shell/core/mdist/api/Exec'
+import { pexecInCurrentTab } from '@kui-shell/core/mdist/api/Exec'
 
 import Icons from '../../spi/Icons'
 import Tooltip from '../../spi/Tooltip'
@@ -89,14 +89,10 @@ export function onClickForCell(
             data: opts.data
           })
         } else if (!isHeadless() && drilldownTo === 'new-window') {
-          const { ipcRenderer } = await import('electron')
-          ipcRenderer.send(
-            'synchronous-message',
-            JSON.stringify({
-              operation: 'new-window',
-              argv: split(handler)
-            })
-          )
+          // New window functionality (Electron-only, deprecated for Tauri)
+          // For Tauri, this should use Tauri's window creation API
+          console.log('New window drilldown not supported in Tauri builds yet. Using current tab instead.')
+          repl.pexec(handler, opts)
         } else {
           repl.pexec(handler, opts)
         }
