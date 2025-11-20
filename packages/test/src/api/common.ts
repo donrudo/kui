@@ -131,7 +131,14 @@ const waitTimeout = parseInt(process.env.TIMEOUT) || 60000
  */
 const prepareElectron = (popup: string[]) => {
   const Application = require('spectron').Application
-  const electron = require('electron')
+  let electron: string
+  try {
+    electron = require('electron')
+  } catch (err) {
+    // Electron not installed - this is expected when running webpack/browser tests
+    // Use 'chromium' or 'chrome' as fallback for headless testing
+    electron = process.env.CHROMIUM_PATH || 'chromium'
+  }
 
   // ugh, Spectron has `env` as having type `object`, which typescript doesn't really like
   const opts: Omit<ApplicationSettings, 'env'> & { env: Record<string, string> } = {
