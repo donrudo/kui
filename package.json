@@ -153,6 +153,7 @@
     "nan": "$nan",
     "colors": "$colors",
     "deep-eql": "^5.0.2",
-    "enquirer": "^2.4.1"
+    "enquirer": "^2.4.1",
+    "glob": "^13.0.0"
   }
 }
